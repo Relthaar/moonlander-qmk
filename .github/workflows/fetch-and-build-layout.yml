@@ -84,6 +84,13 @@ jobs:
           cd qmk_firmware
           git checkout -B firmware${{ steps.download-layout-source.outputs.firmware_version }} origin/firmware${{ steps.download-layout-source.outputs.firmware_version }}
           git submodule update --init --recursive
+          # Add getreuer submodule for build (local only, not committed)
+          if ! git config --file .gitmodules --get-regexp 'submodule\.modules/getreuer' > /dev/null 2>&1; then
+            git submodule add https://github.com/getreuer/qmk-modules.git modules/getreuer
+            git submodule update --init --recursive modules/getreuer
+          else
+            echo "Submodule modules/getreuer already exists"
+          fi
           cd ..
           git add qmk_firmware
           git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
