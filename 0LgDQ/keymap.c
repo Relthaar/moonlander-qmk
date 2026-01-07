@@ -180,3 +180,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+// Custom QMK code
+socd_cleaner_t socd_opposing_pairs[] = {
+  {{KC_W, KC_R}, SOCD_CLEANER_LAST},
+  {{KC_A, KC_S}, SOCD_CLEANER_LAST},
+};
